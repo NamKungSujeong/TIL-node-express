@@ -9,6 +9,7 @@ const app = express();
 // express는 그걸 파싱해서 전달할 객체로 만들고 콜백의 첫번째 인수로 전달해줌
 
 // 요청이 어디서 들어온든 상관없이 콜백 함수 실행
+
 // app.use((req, res) => {
 //   console.log("WE GOT A NEW REQUEST!!");
 //   res.send("HELLO");
