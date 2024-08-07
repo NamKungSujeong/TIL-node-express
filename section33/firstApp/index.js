@@ -20,6 +20,19 @@ app.get("/", (req, res) => {
   res.send("This is the home page");
 });
 
+app.get("/r/:subrredit", (req, res) => {
+  // subreddit이 무엇이어야 하는지 정해 둔 게 아니기 때문에 유효한 건지 혹은 영어인지 확인하는 작업이 없음
+  // 말 그대로 그냥 일치시키는 패턴
+  // console.log(req.params); =>  뒤에 들어오는 값이 찍힘
+  const { subrredit } = req.params;
+  res.send(`subrredit : ${subrredit}`);
+});
+
+app.get("/r/:subrredit/:postId", (req, res) => {
+  const { subrredit, postId } = req.params;
+  res.send(`subrredit : ${subrredit} in ID : ${postId}`);
+});
+
 app.get("/cats", (req, res) => {
   res.send("MEOW!!");
 });
