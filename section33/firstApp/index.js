@@ -45,6 +45,14 @@ app.get("/dogs", (req, res) => {
   res.send("WOOF!!");
 });
 
+app.get("/search", (req, res) => {
+  const { q } = req.query;
+  if (!q) {
+    res.send(`nothing search!`);
+  }
+  res.send(`${q}`);
+});
+
 app.get("*", (req, res) => {
   // 존재하지 않는 라우트를 요청할 때
   // 맨 위에 있을 경우 그 아래 코드는 모두 무시하기 때문에 마지막에 작성하는 것이 중요
