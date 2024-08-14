@@ -20,6 +20,17 @@ app.get("/comments", (req, res) => {
   res.render("comments/index", { comments });
 });
 
+app.get("/comments/new", (req, res) => {
+  // 입력받을 폼을 보여줄 라우트
+  res.render("comments/new");
+});
+
+app.post("/comments", (req, res) => {
+  const { username, comment } = req.body;
+  comments.push({ username, comment });
+  res.send("It works!");
+});
+
 app.get("/tacos", (req, res) => {
   res.send("Get /tacos response");
 });
