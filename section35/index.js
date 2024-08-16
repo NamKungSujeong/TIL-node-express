@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-
+const { v4: uuidv4 } = require("uuid");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.set("views", path.join(__dirname, "views"));
@@ -10,10 +10,10 @@ app.set("view engine", "ejs");
 // request body를 URL 암호화 데이터로 분석할 미들웨어를 사용
 
 const comments = [
-  { id: 1, username: "Todd", comment: "lol" },
-  { id: 2, username: "Sam", comment: "I liek to go hiking" },
-  { id: 3, username: "Jhon", comment: "ABCDEFG" },
-  { id: 4, username: "Sujeong", comment: "HIJKLMNOP" },
+  { id: uuidv4(), username: "Todd", comment: "lol" },
+  { id: uuidv4(), username: "Sam", comment: "I liek to go hiking" },
+  { id: uuidv4(), username: "Jhon", comment: "ABCDEFG" },
+  { id: uuidv4(), username: "Sujeong", comment: "HIJKLMNOP" },
 ];
 
 app.get("/comments", (req, res) => {
@@ -27,13 +27,13 @@ app.get("/comments/new", (req, res) => {
 
 app.post("/comments", (req, res) => {
   const { username, comment } = req.body;
-  comments.push({ username, comment });
+  comments.push({ username, comment, id: uuidv4() });
   res.redirect("/comments");
 });
 
 app.get("/comments/:id", (req, res) => {
   const { id } = req.params;
-  const comment = comments.find((c) => c.id === parseInt(id));
+  const comment = comments.find((c) => c.id === id);
   res.render("comments/show", { comment });
 });
 
