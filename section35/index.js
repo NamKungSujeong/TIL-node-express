@@ -10,10 +10,10 @@ app.set("view engine", "ejs");
 // request body를 URL 암호화 데이터로 분석할 미들웨어를 사용
 
 const comments = [
-  { username: "Todd", comment: "lol" },
-  { username: "Sam", comment: "I liek to go hiking" },
-  { username: "Jhon", comment: "ABCDEFG" },
-  { username: "Sujeong", comment: "HIJKLMNOP" },
+  { id: 1, username: "Todd", comment: "lol" },
+  { id: 2, username: "Sam", comment: "I liek to go hiking" },
+  { id: 3, username: "Jhon", comment: "ABCDEFG" },
+  { id: 4, username: "Sujeong", comment: "HIJKLMNOP" },
 ];
 
 app.get("/comments", (req, res) => {
@@ -31,14 +31,20 @@ app.post("/comments", (req, res) => {
   res.redirect("/comments");
 });
 
-app.get("/tacos", (req, res) => {
-  res.send("Get /tacos response");
+app.get("/comments/:id", (req, res) => {
+  const { id } = req.params;
+  const comment = comments.find((c) => c.id === parseInt(id));
+  res.render("comments/show", { comment });
 });
 
-app.post("/tacos", (req, res) => {
-  const { meat, qty } = req.body;
-  res.send(`here are your ${qty} ${meat} tacos`);
-});
+// app.get("/tacos", (req, res) => {
+//   res.send("Get /tacos response");
+// });
+
+// app.post("/tacos", (req, res) => {
+//   const { meat, qty } = req.body;
+//   res.send(`here are your ${qty} ${meat} tacos`);
+// });
 
 app.listen(3000, () => {
   console.log("listen");
