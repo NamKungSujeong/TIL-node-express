@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.set("views", path.join(__dirname, "views"));
@@ -20,6 +21,7 @@ app.get("/comments", (req, res) => {
   res.render("comments/index", { comments });
 });
 
+// create
 app.get("/comments/new", (req, res) => {
   // 입력받을 폼을 보여줄 라우트
   res.render("comments/new");
@@ -30,6 +32,8 @@ app.post("/comments", (req, res) => {
   comments.push({ username, comment, id: uuidv4() });
   res.redirect("/comments");
 });
+
+// read
 
 app.get("/comments/:id", (req, res) => {
   const { id } = req.params;
