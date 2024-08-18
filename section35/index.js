@@ -41,6 +41,19 @@ app.get("/comments/:id", (req, res) => {
   res.render("comments/show", { comment });
 });
 
+// update
+
+app.patch("/comments/:id", (req, res) => {
+  const { id } = req.params;
+  // id에 해당하는 댓글 찾기
+  const foundComment = comments.find((c) => c.id === id);
+  // 새로운 댓글 받아오기
+  const newComment = req.body.comment;
+  // 해당 댓글에 새로운 댓글 할당
+  foundComment.comment = newComment;
+  res.redirect("/comments");
+});
+
 // app.get("/tacos", (req, res) => {
 //   res.send("Get /tacos response");
 // });
