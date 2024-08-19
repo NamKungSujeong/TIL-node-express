@@ -2,9 +2,11 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
+const methodOverride = require("method-override");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(methodOverride("_method"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 // req.body의 기본값은 undefined이기 떄문에 암호화된 폼 정보를 분석해 줄 필요가 있음
@@ -52,6 +54,12 @@ app.patch("/comments/:id", (req, res) => {
   // 해당 댓글에 새로운 댓글 할당
   foundComment.comment = newComment;
   res.redirect("/comments");
+});
+
+app.get("/comments/:id/edit", (req, res) => {
+  const { id } = req.params;
+  const foundComment = comments.find((c) => c.id === id);
+  res.render("comments/edit", { foundComment });
 });
 
 // app.get("/tacos", (req, res) => {
