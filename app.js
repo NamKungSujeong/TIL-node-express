@@ -7,6 +7,8 @@ const dotenv = require("dotenv");
 const path = require("path");
 
 dotenv.config();
+const indexRouter = require("/routes");
+const userRouter = require("/routes/user");
 const app = express();
 app.set("port", process.env.PORT || 3000);
 
@@ -50,8 +52,11 @@ app.use(
 //   next();
 // });
 
-app.get("/", (req, res) => {
-  res.send("Hello");
+app.use("/", indexRouter);
+app.use("/user", userRouter);
+
+app.use((req, res, next) => {
+  res.status(404).send("Not Found");
 });
 
 app.listen(app.get("port"), (req, res) => {
